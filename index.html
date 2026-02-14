@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$GUTZ — Forged in the Eclipse</title>
+    <link rel="icon" type="image/png" href="assets/GUTZ_TokenImage.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --text: #e8e4d9;
+            --red: #8b0000;
+            --red-bright: #c41e3d;
+            --card-bg: #111111;
+            --card-border: #1a1a1a;
+            --muted: #666;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'IBM Plex Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: url('assets/The Eclipse.jpeg') center center / cover no-repeat;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at center, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.85) 60%, rgba(10,10,10,0.95) 100%),
+                linear-gradient(to bottom, transparent 70%, var(--bg) 100%);
+            pointer-events: none;
+        }
+
+        .hero-logo {
+            width: clamp(100px, 20vw, 180px);
+            height: clamp(100px, 20vw, 180px);
+            border-radius: 50%;
+            border: 2px solid var(--red);
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            color: var(--text);
+            text-shadow:
+                0 0 10px rgba(196, 30, 61, 0.3),
+                0 0 40px rgba(139, 0, 0, 0.2),
+                0 4px 8px rgba(0,0,0,0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title span {
+            color: var(--red-bright);
+        }
+
+        .tagline {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.9rem, 2vw, 1.25rem);
+            color: var(--muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            font-weight: 400;
+        }
+
+        .contract-box {
+            margin-top: 3rem;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.8rem;
+            max-width: 100%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .contract-box:hover {
+            border-color: var(--red);
+        }
+
+        .contract-box .label {
+            color: var(--muted);
+            white-space: nowrap;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .contract-box .address {
+            color: var(--text);
+            word-break: break-all;
+            user-select: all;
+        }
+
+        .contract-box .copy-btn {
+            background: none;
+            border: 1px solid var(--card-border);
+            color: var(--muted);
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .contract-box .copy-btn:hover {
+            color: var(--text);
+            border-color: var(--red);
+        }
+
+        .cta-btn {
+            margin-top: 2.5rem;
+            display: inline-block;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text);
+            background: var(--red);
+            border: none;
+            padding: 1rem 3rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .cta-btn:hover {
+            background: var(--red-bright);
+            box-shadow: 0 0 30px rgba(196, 30, 61, 0.3);
+        }
+
+        /* About */
+        .about {
+            padding: 6rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            color: var(--text);
+        }
+
+        .brand-mark {
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--red);
+            text-shadow: 0 0 20px rgba(139, 0, 0, 0.5);
+        }
+
+        .about p {
+            color: #999;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .about p strong {
+            color: var(--text);
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--red);
+            margin: 4rem auto;
+            opacity: 0.5;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 4rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: saturate(0.3) brightness(0.8);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: saturate(0.6) brightness(0.9);
+        }
+
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 1rem 1rem;
+            background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-item:hover .caption {
+            opacity: 1;
+        }
+
+        /* Links */
+        .links {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .links-row {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .link-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.9rem 2rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .link-btn:hover {
+            border-color: var(--red);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            margin-top: 4rem;
+        }
+
+        footer p {
+            color: #444;
+            font-size: 0.7rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            .contract-box {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .links-row {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .link-btn {
+                width: 100%;
+                max-width: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <section class="hero">
+        <img src="assets/GUTZ_TokenImage.png" alt="GUTZ Token" class="hero-logo">
+        <h1 class="hero-title">$GU<span>T</span>Z</h1>
+        <p class="tagline">Forged in the Eclipse. Born on Solana.</p>
+
+        <div class="contract-box" onclick="copyAddress()" title="Click to copy">
+            <span class="label">CA:</span>
+            <span class="address" id="ca">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
+            <button class="copy-btn" id="copyBtn">COPY</button>
+        </div>
+
+        <a href="https://pump.fun" target="_blank" rel="noopener" class="cta-btn">Buy on Pump.fun</a>
+    </section>
+
+    <!-- About -->
+    <section class="about">
+        <div class="divider"></div>
+        <span class="brand-mark">◆</span>
+        <h2 class="section-title">The Branded</h2>
+        <p>
+            In the abyss, only those with <strong>GUTZ</strong> survive. Born from the Eclipse and forged through endless
+            struggle — this token is a tribute to the ones who keep swinging the sword no matter the odds.
+            No prophecy. No chosen ones. Just raw, relentless will on the Solana blockchain.
+        </p>
+        <div class="divider"></div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <h2 class="section-title">Visions of the Abyss</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="assets/Arrival at Elfhelm.jpeg" alt="Arrival at Elfhelm" loading="lazy">
+                <div class="caption">Arrival at Elfhelm</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/Dragon on the Tower.jpeg" alt="Dragon on the Tower" loading="lazy">
+                <div class="caption">Dragon on the Tower</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/The Beast of Darkness.jpeg" alt="The Beast of Darkness" loading="lazy">
+                <div class="caption">The Beast of Darkness</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/The Fall of Mozgus.jpeg" alt="The Fall of Mozgus" loading="lazy">
+                <div class="caption">The Fall of Mozgus</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/The God Hand.jpeg" alt="The God Hand" loading="lazy">
+                <div class="caption">The God Hand</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/The Great Roar of the Astral World.jpeg" alt="The Great Roar of the Astral World" loading="lazy">
+                <div class="caption">The Great Roar of the Astral World</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/The Winter Journey.jpeg" alt="The Winter Journey" loading="lazy">
+                <div class="caption">The Winter Journey</div>
+            </div>
+            <div class="gallery-item">
+                <img src="assets/Zodd's Flight.jpeg" alt="Zodd's Flight" loading="lazy">
+                <div class="caption">Zodd's Flight</div>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+    <!-- Links -->
+    <section class="links">
+        <h2 class="section-title">Join the Band</h2>
+        <div class="links-row">
+            <a href="https://pump.fun" target="_blank" rel="noopener" class="link-btn">Pump.fun</a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="link-btn">Twitter / X</a>
+            <a href="https://t.me" target="_blank" rel="noopener" class="link-btn">Telegram</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            $GUTZ is a memecoin with no intrinsic value or expectation of financial return.
+            There is no formal team or roadmap. The token is for entertainment purposes only.
+            Always do your own research.
+        </p>
+    </footer>
+
+    <script>
+        function copyAddress() {
+            const address = document.getElementById('ca').textContent;
+            navigator.clipboard.writeText(address).then(() => {
+                const btn = document.getElementById('copyBtn');
+                btn.textContent = 'COPIED';
+                setTimeout(() => { btn.textContent = 'COPY'; }, 1500);
+            });
+        }
+    </script>
+
+</body>
+</html>
